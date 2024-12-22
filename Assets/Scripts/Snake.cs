@@ -20,7 +20,7 @@ public class Snake : MonoBehaviour {
     private State state;
     private Direction gridMoveDirection; 
     private Vector2Int gridPosition;
-    private float gridMoveTimer;
+    private float gridMoveTimer = 0f;
     private float gridMoveTimerMax;
     private LevelGrid levelGrid;
     private int snakeBodySize;
@@ -37,7 +37,7 @@ public class Snake : MonoBehaviour {
     private void Awake() {
     gridPosition = new Vector2Int(10, 10);
     gridMoveTimerMax = 0.2f; // Dikurangi dari 1f menjadi 0.8f untuk membuat ular lebih cepat
-    gridMoveTimer = gridMoveTimerMax;
+    gridMoveTimer = 0f;
     gridMoveDirection = Direction.Right;
     snakeBodySize = 0;
     snakeMovePositionList = new List<SnakeMovePosition>();
@@ -86,7 +86,7 @@ public class Snake : MonoBehaviour {
      gridMoveTimer += Time.deltaTime;
         if (gridMoveTimer >= gridMoveTimerMax) {
             
-            gridMoveTimer -= gridMoveTimerMax;
+            gridMoveTimer = 0.0f;
 
             SnakeMovePosition previousSnakeMovePosition = null;
             if(snakeMovePositionList.Count > 0){
@@ -128,8 +128,7 @@ public class Snake : MonoBehaviour {
             Vector2Int snakeBodyPartGridPosition = snakeBodyPart.GetGridPosition();
             if (gridPosition == snakeBodyPartGridPosition){
                 //you are dead
-                CMDebug.TextPopup("Youre dead", transform.position);
-                state = State.Dead;
+                Die();
             }
 
 
@@ -144,6 +143,11 @@ public class Snake : MonoBehaviour {
       
     }
     
+    public void Die() {
+        CMDebug.TextPopup("Youre dead", transform.position);
+        state = State.Dead;
+    }
+
     private void CreateSnakeBody(){
         snakeBodyPartList.Add(new SnakeBodyPart(snakeBodyPartList.Count));
 
