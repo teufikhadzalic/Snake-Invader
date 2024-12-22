@@ -10,6 +10,7 @@ public class LevelGrid
     private int width;
     private int height;
     private Snake snake;
+    private Health snakeHealth;
 
     public LevelGrid(int width, int height){
     this.width = width;
@@ -20,6 +21,7 @@ public class LevelGrid
     }
     public void Setup(Snake snake){
     this.snake =snake; 
+    snakeHealth = snake.GetComponent<Health>();
       SpawnFood();
     }
  
@@ -37,10 +39,12 @@ public class LevelGrid
     }
 
     public bool SnakeAte(Vector2Int snakeGridPosition){
+        snakeHealth = snake.GetComponent<Health>();
         if(snakeGridPosition== foodGridPosition){
             Object.Destroy(foodGameObject);
             SpawnFood();
             GameHandler.AddScore();
+            snakeHealth.Heal();
             return true;
         } else{
             return false;

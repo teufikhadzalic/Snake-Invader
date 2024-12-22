@@ -26,6 +26,7 @@ public class Snake : MonoBehaviour {
     private int snakeBodySize;
     private List<SnakeMovePosition> snakeMovePositionList;
     private List<SnakeBodyPart> snakeBodyPartList;
+    public SoundController sound;
 
     public void Setup(LevelGrid levelGrid){
         this.levelGrid =levelGrid;
@@ -146,6 +147,9 @@ public class Snake : MonoBehaviour {
     public void Die() {
         CMDebug.TextPopup("Youre dead", transform.position);
         state = State.Dead;
+        sound.PlayDeath();
+        sound.StopBackground();
+        GameObject.Find("Enemy Horizontal").SetActive(false);
     }
 
     private void CreateSnakeBody(){

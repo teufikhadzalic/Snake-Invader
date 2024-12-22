@@ -20,8 +20,7 @@ public class GameHandler : MonoBehaviour {
       levelGrid = new LevelGrid(20,20);
       snake.Setup(levelGrid);
       levelGrid.Setup(snake);
-
-        Debug.Log("GameHandler.Start");
+      Debug.Log("GameHandler.Start");
 
        /* GameObject snakeHeadGameObject = new GameObject();
         SpriteRenderer snakeSpriteRenderer = snakeHeadGameObject.AddComponent<SpriteRenderer>();
@@ -36,7 +35,6 @@ public class GameHandler : MonoBehaviour {
     public static void AddScore(){
       score += 100;
     }
-
-  
+    
     
 }

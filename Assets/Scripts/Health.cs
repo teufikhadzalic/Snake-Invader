@@ -6,6 +6,7 @@ using CodeMonkey;
 
 public class Health : MonoBehaviour
 {
+    public SoundController sound;
     public int health;
     public int maxHealth;
     public Snake snake;
@@ -19,12 +20,23 @@ public class Health : MonoBehaviour
     // Fungsi mengurangi health
     public void Subtract(int value) {
         health -= value;
+        sound.PlayDamage();
         Debug.Log(gameObject.name + " took "+value+" damage.");
         if(health <= 0) {
-            Destroy(gameObject);
+            health = 0;
             if(snake) {
                 snake.Die();
             }
+        }
+    }
+
+    public void Heal() {
+        sound.PlayHeal();
+        if(health < maxHealth) {
+            health += 5;
+        }
+        if(health >= maxHealth) {
+            health = maxHealth;
         }
     }
 }
