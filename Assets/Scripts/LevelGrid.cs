@@ -40,11 +40,27 @@ public class LevelGrid
         if(snakeGridPosition== foodGridPosition){
             Object.Destroy(foodGameObject);
             SpawnFood();
-            CMDebug.TextPopupMouse("Snake Ate The APPLE!!!");
+            GameHandler.AddScore();
             return true;
         } else{
             return false;
         }
         
     }
+   public Vector2Int ValidateGridPosition(Vector2Int gridPosition) {
+    if (gridPosition.x < 0) {
+        gridPosition.x = width - 1; // Wrap to the right edge
+    }
+    if (gridPosition.x > width -1){
+        gridPosition.x = 0;
+    }
+    if (gridPosition.y < 0) {
+        gridPosition.y = height - 1; // Wrap to the bottom edge
+    }
+    if (gridPosition.y > height -1){
+        gridPosition.y = 0;
+    }
+    return gridPosition;
+}
+
 }
